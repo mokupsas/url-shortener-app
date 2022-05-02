@@ -37,7 +37,8 @@ switch($routeInfo[0]){
         $method = $routeInfo[1][1];
         $vars = $routeInfo[2];
         // ... call $handler with $vars
-		echo '1';
+		$class = new $className($vars);
+		$response->setContent($class->$method());
         break;
 }
 
