@@ -6,10 +6,28 @@ namespace UrlShortener;
 use Http\HttpRequest;
 use Http\HttpResponse;
 
+use UrlShortener\Database\MysqliClass;
+
 require(__DIR__ . '/../vendor/autoload.php');
 
+/*
+ *	Http request/response
+ */
 $request = new HttpRequest($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER, file_get_contents('php://input'));
 $response = new HttpResponse();
+
+
+/*
+ *	Database
+ */
+$db = new MysqliClass('localhost', 'root', '', 'test');
+
+/*
+ *	Dependency injection
+ */
+$injector = new \Auryn\Injector;
+$injector->share($db);
+
 
 /*
  *	Managing routes
