@@ -16,16 +16,16 @@ require(__DIR__ . '/../vendor/autoload.php');
 $request = new HttpRequest($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER, file_get_contents('php://input'));
 $response = new HttpResponse();
 
-
 /*
  *	Database
  */
-$db = new MysqliClass('localhost', 'root', '', 'test');
+$db = new MysqliClass('localhost', 'root', '', 'urlshortener');
 
 /*
  *	Dependency injection
  */
 $injector = new \Auryn\Injector;
+$injector->share($request);
 $injector->share($db);
 
 
@@ -55,8 +55,13 @@ switch($routeInfo[0]){
         $method = $routeInfo[1][1];
         $vars = $routeInfo[2];
         // ... call $handler with $vars
+		/*
 		$class = new $className($vars);
 		$response->setContent($class->$method());
+		*/
+		$class = $injector->make($className);
+		$content = $class->$method($vars);
+		$response->setContent($content);
         break;
 }
 

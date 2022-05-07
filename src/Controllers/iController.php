@@ -5,6 +5,5 @@ namespace UrlShortener\Controllers;
 
 interface iController 
 {
-	public function __construct($vars);
-	public function show();
+	public function show($vars);
 }
