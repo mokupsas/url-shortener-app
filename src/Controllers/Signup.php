@@ -11,7 +11,7 @@ use UrlShortener\Auth\Handler;
 use UrlShortener\Database\MysqliClass;
 use UrlShortener\Template\MustacheEgine;
 
-class Signup
+class Signup implements iController
 {
 	// Objects
 	private $request;
@@ -23,7 +23,8 @@ class Signup
     private const SIGNUP_NOT_SUBMITTED = 3;
 	private const SIGNUP_INPUT_EMPTY = 4;
 	private const SIGNUP_BAD_EMAIL = 5;
-	private const SIGNUP_PASS_LENGTH = 6;
+	private const SIGNUP_EMAIL_IN_USE = 6;
+	private const SIGNUP_PASS_LENGTH = 7;
 
 	public function __construct(HttpRequest $request, MysqliClass $db)
 	{
@@ -31,7 +32,7 @@ class Signup
 		$this->db = $db->get();
 	}
 	
-	public function show()
+	public function show($vars)
 	{
 		// Objects
 		//$authHandler = new Handler($this->db);
@@ -73,6 +74,9 @@ class Signup
 		if(!$this->isPasswordValid($password))
 			return self::SIGNUP_PASS_LENGTH;
 		
+		if($this->isEmailInUse($email))
+			return self::SIGNUP_EMAIL_IN_USE;
+		
 		if($this->createDbEntry($email, $password))
 			return self::SIGNUP_SUCCESS;
 		
@@ -92,6 +96,26 @@ class Signup
 			return false;
 		
 		return true;
+	}	
+	
+	private function isEmailInUse($email)
+	{
+ 		// prepare and bind
+		if($stmt = $this->db->prepare("SELECT * FROM users WHERE email=?"))
+		{
+			$stmt->bind_param("s", $email);
+
+			if($stmt->execute())
+			{
+				$result = $stmt->get_result(); // get the mysqli result
+
+				if($result->num_rows > 0)
+					return true;
+			}
+		}
+		$stmt->close();
+		
+		return false;
 	}	
 	
 	private function areFieldsFilled($email, $password)
@@ -132,6 +156,9 @@ class Signup
 		if($status == self::SIGNUP_BAD_EMAIL)
 			return 'Wrong email';
 		
+		if($status == self::SIGNUP_EMAIL_IN_USE)
+			return 'Email is already in use';
+		
 		if($status == self::SIGNUP_PASS_LENGTH)
 			return 'Password must be at least 6 characters long';
 	}
@@ -144,7 +171,7 @@ class Signup
 		$password = Password::hash($password);
 		
  		// prepare and bind
-		if($stmt = $this->db->prepare("INSERT INTO users (email, password, ip, created) VALUES (?, ?, ?, ?)"))
+		if($stmt = $this->db->prepare("INSERT INTO users (email, password, reg_ip, created) VALUES (?, ?, ?, ?)"))
 		{
 			$stmt->bind_param("ssss", $email, $password, $ip, $datetime);
 

@@ -6,6 +6,7 @@ namespace UrlShortener;
 use Http\HttpRequest;
 use Http\HttpResponse;
 
+use UrlShortener\Security\Password;
 use UrlShortener\Database\MysqliClass;
 
 require(__DIR__ . '/../vendor/autoload.php');
