@@ -13,4 +13,5 @@ class StatusCodes
 	public const SIGNUP_BAD_EMAIL = 104;
 	public const SIGNUP_EMAIL_IN_USE = 105;
 	public const SIGNUP_PASS_LENGTH = 106;
+	public const SIGNUP_IP_LIMIT = 107;
 }

@@ -24,6 +24,9 @@ class UserHandler
 		// Getting POST parameters
 		$email = $this->sanitize($email);
 		$password = $this->sanitize($password);
+		// Variables
+		$datetime = date("Y-m-d H:i:s");
+		$ip = $this->request->getIpAddress();
 		
 		// Validating data
 		if(!$this->areFieldsFilled($email, $password))
@@ -37,9 +40,24 @@ class UserHandler
 		
 		if($this->isEmailInUse($email))
 			return StatusCodes::SIGNUP_EMAIL_IN_USE;
+		var_dump($this->countIpRegistrations($ip));
+		if($this->countIpRegistrations($ip) >= 3)
+			return StatusCodes::SIGNUP_IP_LIMIT;
 		
-		if($this->createDbEntry($email, $password))
-			return StatusCodes::SIGNUP_SUCCESS;
+		// Hashing password
+		$hashed_password = Password::hash($password);
+		
+ 		// Registering account to database
+		if($stmt = $this->db->get()->prepare("INSERT INTO users (email, password, reg_ip, created) VALUES (?, ?, ?, ?)"))
+		{
+			$stmt->bind_param("ssss", $email, $hashed_password, $ip, $datetime);
+
+			if($stmt->execute())
+			{
+				return StatusCodes::SIGNUP_SUCCESS;
+			}
+		}
+		$stmt->close();	
 		
 		return StatusCodes::SIGNUP_ERROR;
 	}
@@ -63,6 +81,9 @@ class UserHandler
 		
 		if($status == StatusCodes::SIGNUP_EMAIL_IN_USE)
 			return 'Email is already in use';
+		
+		if($status == StatusCodes::SIGNUP_IP_LIMIT)
+			return 'Registration limit reached';
 		
 		if($status == StatusCodes::SIGNUP_PASS_LENGTH)
 			return 'Password must be at least 6 characters long';
@@ -116,25 +137,22 @@ class UserHandler
 		return true;
 	}	
 	
-	private function createDbEntry($email, $password)
+	private function countIpRegistrations($ip) : int
 	{
-		$datetime = date("Y-m-d H:i:s");
-		$ip = $this->request->getIpAddress();
-		
-		$password = Password::hash($password);
-		
  		// prepare and bind
-		if($stmt = $this->db->get()->prepare("INSERT INTO users (email, password, reg_ip, created) VALUES (?, ?, ?, ?)"))
+		if($stmt = $this->db->get()->prepare("SELECT reg_ip FROM users WHERE reg_ip=?"))
 		{
-			$stmt->bind_param("ssss", $email, $password, $ip, $datetime);
+			$stmt->bind_param("s", $ip);
 
 			if($stmt->execute())
 			{
-				return true;
+				$result = $stmt->get_result(); // get the mysqli result
+
+				return $result->num_rows;
 			}
 		}
 		$stmt->close();
 		
-		return false;
+		return -1;
 	}
 }
