@@ -13,7 +13,7 @@ use UrlShortener\Auth\Handler;
 use UrlShortener\Database\MysqliClass;
 use UrlShortener\Template\MustacheEgine;
 
-class Signup implements iController
+class Login implements iController
 {
 	// Objects
 	private $request;
@@ -45,14 +45,6 @@ class Signup implements iController
 			$alert = $userHandler->statusToMessage($status);
 		}
 		
-		//return $templateEngine->render('Homepage', array());
-		return '
-			'. $alert .'
-			<form method="POST">
-				<input type="text" name="email">
-				<input type="password" name="pass">
-				<input type="submit" name="submit">
-			</form>
-		';
+		return $templateEngine->render('Login', array('title' => 'Signup', 'alert' => $alert));
 	}
 }
