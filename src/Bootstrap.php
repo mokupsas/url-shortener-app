@@ -8,8 +8,11 @@ use Http\HttpResponse;
 
 use UrlShortener\Security\Password;
 use UrlShortener\Database\MysqliClass;
+use UrlShortener\Account\User;
 
 require(__DIR__ . '/../vendor/autoload.php');
+
+session_start();
 
 /*
  *	Http request/response
