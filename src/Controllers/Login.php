@@ -45,6 +45,14 @@ class Signup implements iController
 			$alert = $userHandler->statusToMessage($status);
 		}
 		
-		return $templateEngine->render('Signup', array('title' => 'Signup', 'alert' => $alert));
+		//return $templateEngine->render('Homepage', array());
+		return '
+			'. $alert .'
+			<form method="POST">
+				<input type="text" name="email">
+				<input type="password" name="pass">
+				<input type="submit" name="submit">
+			</form>
+		';
 	}
 }
