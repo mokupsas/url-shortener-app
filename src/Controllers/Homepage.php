@@ -12,6 +12,11 @@ class Homepage implements iController
 		
 	}
 	
+	//-------------------------------------
+	/** Manages view to response
+	@param array $vars - route pattern variables (i.e. '/user/{name}')
+	@param string */
+	//-------------------------------------	
 	public function show($vars)
 	{
 		$templateEngine = new MustacheEgine();

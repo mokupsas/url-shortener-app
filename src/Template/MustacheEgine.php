@@ -5,6 +5,12 @@ namespace UrlShortener\Template;
 
 class MustacheEgine implements iRender
 {
+	//-------------------------------------
+	/** Chechks if raw password matches hashed password
+	@param string $template	- template/html page name from views folder
+	@param array $data		- template variables to render
+	@param string */
+	//-------------------------------------				
 	public function render($template, $data)
 	{
 		/*

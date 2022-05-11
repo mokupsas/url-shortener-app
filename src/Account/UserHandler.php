@@ -13,12 +13,23 @@ class UserHandler
 	private $request;
 	private $db;
 	
+	//-------------------------------------
+	/** Creates UserHandler object
+	@param HttpRequest $request	- website request handler class
+	@param MysqliClass $db		- Mysqli object class */
+	//-------------------------------------	
 	public function __construct(HttpRequest $request, MysqliClass $db)
 	{
 		$this->request = $request;
 		$this->db = $db;
 	}
 	
+	//-------------------------------------
+	/** Register a user
+	@param string $email	- user email
+	@param string $password	- user password 
+	@return StatusCodes:int */
+	//-------------------------------------		
 	public function register($email, $password)
 	{		
 		// Getting POST parameters
@@ -62,6 +73,13 @@ class UserHandler
 		return StatusCodes::SIGNUP_ERROR;
 	}
 	
+	//-------------------------------------
+	/** Converts StatusCode values to user 
+		friendly message
+	@param int $status	- StatusCode value
+	@param string $password	- user password 
+	@return string */
+	//-------------------------------------		
 	public function statusToMessage($status)
 	{
 		if($status == StatusCodes::SIGNUP_NOT_SUBMITTED)
@@ -89,6 +107,11 @@ class UserHandler
 			return 'Password must be at least 6 characters long';
 	}	
 	
+	//-------------------------------------
+	/** Sanitize user provided data
+	@param string $data	- data to sanitize
+	@return string */
+	//-------------------------------------		
 	private function sanitize($data) {
 		$data = trim($data);
 		$data = stripslashes($data);
@@ -96,6 +119,11 @@ class UserHandler
 		return $data;
 	}		
 	
+	//-------------------------------------
+	/** Is email already registered in database
+	@param string $mail - user provided email
+	@return bool */
+	//-------------------------------------		
 	private function isEmailInUse($email)
 	{
  		// prepare and bind
@@ -116,6 +144,12 @@ class UserHandler
 		return false;
 	}	
 	
+	//-------------------------------------
+	/** Checks that both submissions are not empty
+	@param string $email	- user email
+	@param string $password	- user password 
+	@return bool */
+	//-------------------------------------		
 	private function areFieldsFilled($email, $password)
 	{
 		if(empty($email) || empty($password))
@@ -123,12 +157,22 @@ class UserHandler
 		
 		return true;
 	}
-	
+
+	//-------------------------------------
+	/** Checks if email is valid
+	@param string $email - user email
+	@return string|bool */
+	//-------------------------------------		
 	private function isEmailValid($email)
 	{
 		return filter_var($email, FILTER_VALIDATE_EMAIL);
 	}
 	
+	//-------------------------------------
+	/** Checks if password meets requirements
+	@param string $password	- user password 
+	@return bool */
+	//-------------------------------------		
 	private function isPasswordValid($password)
 	{
 		if(strlen($password) < 6)
@@ -137,6 +181,11 @@ class UserHandler
 		return true;
 	}	
 	
+	//-------------------------------------
+	/** Count how many registrations made by IP address
+	@param string $ip	- IP address 
+	@return int */
+	//-------------------------------------		
 	private function countIpRegistrations($ip) : int
 	{
  		// prepare and bind
