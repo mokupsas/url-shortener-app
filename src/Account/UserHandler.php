@@ -51,7 +51,7 @@ class UserHandler
 		
 		if($this->isEmailInUse($email))
 			return StatusCodes::SIGNUP_EMAIL_IN_USE;
-		var_dump($this->countIpRegistrations($ip));
+
 		if($this->countIpRegistrations($ip) >= 3)
 			return StatusCodes::SIGNUP_IP_LIMIT;
 		

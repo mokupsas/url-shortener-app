@@ -34,7 +34,6 @@ class Login implements iController
 	//-------------------------------------		
 	public function show($vars)
 	{
-		var_dump($vars);
 		// Objects
 		$templateEngine = new MustacheEgine();
 		$user = new User($this->db);
