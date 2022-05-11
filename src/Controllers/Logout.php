@@ -10,7 +10,7 @@ use UrlShortener\Database\MysqliClass;
 use UrlShortener\Account\User;
 use UrlShortener\Template\MustacheEgine;
 
-class Login implements iController
+class Logout implements iController
 {
 	// Objects
 	private $request;
@@ -25,28 +25,15 @@ class Login implements iController
 	public function show($vars)
 	{
 		// Objects
-		$templateEngine = new MustacheEgine();
 		$user = new User($this->db);
 		
 		// If user is logged in redirect
 		if($user->isLoggedIn())
 		{
-			header("Location: /"); 
-			exit();
+			$user->logout();
 		}
 			
-		$email = $this->request->getParameter('email');
-		$password = $this->request->getParameter('pass');
-		
-		$alert = null;	
-		if($this->request->getParameter('submit'))
-		{
-			if(!$user->login($email, $password))
-			{
-				$alert = $user->getMsg()->pop()['message'];
-			}
-		}
-		
-		return $templateEngine->render('Login', array('title' => 'Login', 'alert' => $alert));
+		header("Location: /"); 
+		exit();
 	}
 }

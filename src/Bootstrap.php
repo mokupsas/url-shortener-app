@@ -6,7 +6,6 @@ namespace UrlShortener;
 use Http\HttpRequest;
 use Http\HttpResponse;
 
-use UrlShortener\Security\Password;
 use UrlShortener\Database\MysqliClass;
 use UrlShortener\Account\User;
 
@@ -49,6 +48,10 @@ $routeInfo = $dispatcher->dispatch($request->getMethod(), $request->getUri());
 switch($routeInfo[0]){
     case \FastRoute\Dispatcher::NOT_FOUND:
         // ... 404 Not Found
+		//header('Location: /404', true);
+		//exit();
+		$class = $injector->make('UrlShortener\Controllers\PageNotFound');
+		$response->setContent($class->show(null));
         break;
     case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
         $allowedMethods = $routeInfo[1];
