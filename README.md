@@ -4,6 +4,8 @@ Small PHP url shortener website that use MVC pattern. The aim of the work is to 
 ## Features
 - General
   - [ ] Url shortening. Base62 encode/decode
+  - [ ] Create short url without registration
+    - [ ] Assign a url to the user when registering
 - Account
   - Management
     - User shortened links 
