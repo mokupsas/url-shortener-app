@@ -1,5 +1,5 @@
-# PHP Url Shortener Fullstack Project
-Small PHP url shortener website project meeting the requirements of a normal functioning website
+# PHP Url Shortener Project
+Small PHP url shortener website that use MVC pattern. The aim of the work is to learn and create a project that meets requirements of a normal functioning website.
 
 ## Features
 - General
