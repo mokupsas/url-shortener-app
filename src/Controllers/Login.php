@@ -9,6 +9,8 @@ use Http\HttpResponse;
 use UrlShortener\Database\MysqliClass;
 use UrlShortener\Account\User;
 use UrlShortener\Template\MustacheEgine;
+use UrlShortener\UI\Header;
+use UrlShortener\UI\Message;
 
 class Login implements iController
 {
@@ -37,6 +39,7 @@ class Login implements iController
 		// Objects
 		$templateEngine = new MustacheEgine();
 		$user = new User($this->db);
+		$header = new Header($user);
 		
 		// If user is logged in redirect
 		if($user->isLoggedIn())
@@ -47,16 +50,22 @@ class Login implements iController
 			
 		$email = $this->request->getParameter('email');
 		$password = $this->request->getParameter('pass');
-		
+
 		$alert = null;	
 		if($this->request->getParameter('submit'))
 		{
-			if(!$user->login($email, $password))
+			if($user->login($email, $password))
 			{
-				$alert = $user->getMsg()->pop()['message'];
+				header("Location: /"); 
+				exit();
+			}
+			else
+			{
+				$msg = $user->getMsg()->pop();
+				$alert = Message::alert($msg['message'], $msg['type']);	
 			}
 		}
-		
-		return $templateEngine->render('Login', array('title' => 'Login', 'alert' => $alert));
+
+		return $templateEngine->render('Login', array('title' => 'Login', 'header' => $header->get(), 'alert' => $alert));
 	}
 }

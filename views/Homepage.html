@@ -2,12 +2,136 @@
 <html>
 <head>
 	<title>{{title}}</title>
-	 <link rel="stylesheet" href="public/css/style.css">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="public/css/main.css">
+	<link rel="stylesheet" href="public/css/homepage.css">
+	<link rel="stylesheet" href="public/css/bootstrap-edits.css">
+	<link href="public/vendor/fontawesome/css/all.css" rel="stylesheet">
+	<link href="public/vendor/fontawesome/css/sticky-footer-navbar.css.css" rel="stylesheet">
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+	<!-- Bootstrap v5.1.3 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 </head>
 <body>
 
-	<h1>Url shortener</h1>
-	<p>{{p}}</p>
+	{{&header}}
+	
+	<main class="">
+	
+		<div class="section-main pt-5 pb-5">
+			<div class="container">
+				<!-- Link input -->
+				<form>
+				  <div class="form-row">
+					<input type="text" class="link-input form-control col-lg" id="linkInput" aria-describedby="emailHelp" placeholder="Enter your link">
+					<button type="submit" class="btn btn-primary btn-block col-sm-3">Shorten</button>				
+				  </div>
+				  <small id="emailHelp" class="form-text text-muted text-center">By clicking "Shorten" button, you agree with <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</small>
+				</form>			
+			</div>
+		</div>
+		
+		<div class="container">
+		
+			<div class="row mt-5">
+			
+				<div class="col">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Special title treatment</h5>
+							<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+							<a href="#" class="btn btn-primary">Go somewhere</a>	
+						</div>
+					</div>
+				</div>
+				
+				<div class="col">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Special title treatment</h5>
+							<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+							<a href="#" class="btn btn-primary">Go somewhere</a>	
+						</div>
+					</div>
+				</div>
+				
+				<div class="col">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Special title treatment</h5>
+							<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+							<a href="#" class="btn btn-primary">Go somewhere</a>	
+						</div>
+					</div>
+				</div>				
+		
+			</div>
+			
+			<h3 class="text-center mt-5">FAQ</h3>
+			<div id="accordion">
+			  <div class="card" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+				<div class="card-header" id="headingOne">
+				  <h6 class="mb-0">
+					  Answer One
+				  </h6>
+				</div>
 
+				<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+				  <div class="card-body">
+					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+				  </div>
+				</div>
+			  </div>
+			  <div class="card" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+				<div class="card-header" id="headingTwo">
+				  <h6 class="mb-0">
+					  Answer Two
+				  </h6>
+				</div>
+				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+				  <div class="card-body">
+					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+				  </div>
+				</div>
+			  </div>
+			  <div class="card" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+				<div class="card-header" id="headingThree">
+				  <h6 class="mb-0">
+					  Answer Three
+				  </h6>
+				</div>
+				<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+				  <div class="card-body">
+					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+				  </div>
+				</div>
+			  </div>
+			</div>
+			
+		</div>
+	</main>
+	
+	<footer class="footer fixed-bottom">
+		<div class="container d-flex flex-wrap justify-content-between align-items-center my-4">
+		
+			<div class="col-md-4 d-flex align-items-center">
+				<span class="text-muted">© 2022 UrlShortener</span>
+			</div>
+			
+			<div class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+				<a class="text-muted fs-2" href="https://github.com/mokupsas"><i class="fa-brands fa-github"></i></a>
+			</div>
+			
+			<ul class="nav col-md-4 justify-content-end">
+				<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+				<li class="nav-item"><a href="https://github.com/mokupsas/url-shortener-website" class="nav-link px-2 text-muted">Support</a></li>
+			</ul>
+		</div>
+	</footer>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
 </body>
 </html> 

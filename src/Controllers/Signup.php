@@ -6,12 +6,15 @@ namespace UrlShortener\Controllers;
 use Http\HttpRequest;
 use Http\HttpResponse;
 
+use UrlShortener\Account\User;
 use UrlShortener\Account\StatusCodes;
 use UrlShortener\Account\UserHandler;
 use UrlShortener\Security\Password;
 use UrlShortener\Auth\Handler;
 use UrlShortener\Database\MysqliClass;
 use UrlShortener\Template\MustacheEgine;
+use UrlShortener\UI\Header;
+use UrlShortener\UI\Message;
 
 class Signup implements iController
 {
@@ -40,7 +43,9 @@ class Signup implements iController
 		// Objects
 		//$authHandler = new Handler($this->db);
 		$templateEngine = new MustacheEgine();
+		$user = new User($this->db);
 		$userHandler = new UserHandler($this->request, $this->db);
+		$header = new Header($user);
 		
 		$email = $this->request->getParameter('email');
 		$password = $this->request->getParameter('pass');
@@ -49,12 +54,12 @@ class Signup implements iController
 		if($this->request->getParameter('submit'))
 		{
 			// Registration status code
-			$status = $userHandler->register($email, $password);
+			$status = $userHandler->register($email, $password); 
 			
 			// Alert message with registration information for user
-			$alert = $userHandler->statusToMessage($status);
+			$alert = Message::alert($userHandler->statusToMessage($status));
 		}
 		
-		return $templateEngine->render('Signup', array('title' => 'Signup', 'alert' => $alert));
+		return $templateEngine->render('Signup', array('title' => 'Signup', 'header' => $header->get(), 'alert' => $alert));
 	}
 }
