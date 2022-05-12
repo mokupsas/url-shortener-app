@@ -4,15 +4,25 @@ Small PHP url shortener website that use MVC pattern. The aim of the work is to 
 ## Features
 - General
   - [ ] Url shortening. Base62 encode/decode
-- Auth
+- Account
+  - Management
+    - User shortened links 
+      - [ ] Edit
+      - [ ] Activate/pause
+      - [ ] Delete
+    - [ ] Change email
+    - [ ] Change password
   - Registration
-    - [x] Password hash with BCRYPT
     - [x] One email per website (prevent email collision)
-    - [x] Three accounts per IP address- 
-  - Login
-    - [x] Raw with BCRYPT password verification
-    - [ ] Limit attempts to prevent brute-force
-  - Logout
+  - [x] Login
+  - [x] Logout
+- Security
+  - [x] Password BCRYPT hash/verification
+  - [x] Three accounts per IP address 
+  - [ ] Limit attempts to prevent brute-force
+  - [x] SQL injection protection. Prepared statements
+  - [ ] CSRF protection
+  - [ ] XSS protection
 
 ## PHP Libraries
 - [nikic/fast-route](https://github.com/nikic/FastRoute)
